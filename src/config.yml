@@ -1,0 +1,63 @@
+minPlayers : 1
+debugMode: true
+guiEvents: ["deathPotion", "lifePotion", "noAction", "selectPlayer", "skip", "confirmSelection", "selectPlayerGUI", "interruption", "mayorVote"]
+
+noGameError: "§cil n'y a pas de partie de loup-garou en cours"
+noPlayersError: "§cil n'y a pas de joueurs dans la partie de loup-garou en cours"
+notInGameError: "§cvous n'etes pas dans la partie de loup-garou"
+
+distributeHousesMessage: '<player> a la maison n°<number>'
+startGameMessage: 'Debut de la partie'
+
+onNightMessage: "C'est la nuit"
+onDayMessage: "C'est le jour"
+
+noDeathMessage: "Il n'y a pas eut de morts cette nuit"
+
+mayorElectionMessage: 'Il faut élire une maire'
+killElectionMessage: "Il faut tuer quelqu'un"
+
+newMayorMessage: "Le nouveau maire c'est <player>"
+votedDeathMessage: "<player> a été tuer par le village"
+
+noVotedMessage: "§2Vous n'avez voter pour personne"
+
+
+lgCreateGameMessage: "création d'une nouvelle partie de loup-garou"
+lgCreateGameMessage_Error: '§cil y a deja une partie de loup-garou crée'
+
+lgDeleteGameMessage: 'suppression la partie de loup-garou'
+lgDeleteGameMessage_Error: "§cil n'y a pas de partie de loup-garou a supprimer"
+
+lgJoinGameMessage: '<player> a §2rejoint §rla partie de loup-garou'
+lgJoinGameMessage_InError: '§ctu est deja dans la partie de loup-garou'
+
+leaveGameMessage: '<player> a §4quitter §rla partie de loup-garou'
+leaveGameMessage_NotInError: "§ctu n'est pas dans la partie de loup-garou"
+
+lgHouseListMessage_NoHousesError: "§cil n'y a pas de maison disponible"
+
+startGame_NotEnoughtHousesError: "§cil n'y a pas assez de maisons pour lancer la partie"
+startGame_NotEnoughtPlayersError: "§cil n'y a pas assez de joueurs pour lancer la partie"
+
+
+roleName_Cupid: '§dCupidon'
+roleDescription_Cupid: 'cipilol'
+
+roleName_Seer: '§bVoyante'
+roleDescription_Seer: 'voyante duq'
+
+noSelectionError: "Vous n'avez pas choisi de joueur"
+wrongLifePotionTargetError: "Vous n'avez pas choisi de joueur"
+
+roleName_WereWolf: '§4Loup-Garou'
+roleDescription_WereWolf: 'lg du q'
+
+roleName_Witch: '§5Sorcière'
+roleDescription_Witch: 'sorciere de ses morts'
+
+savingMessage: 'vous avez sauvez <player>'
+killingMessage: 'vous avez tuer <player>'
+
+roleName_Villager: '§2Villageois'
+roleDescription_Villager: 'tro nul le role'
