@@ -1,6 +1,6 @@
 minPlayers : 1
-debugMode: true
-guiEvents: ["deathPotion", "lifePotion", "noAction", "selectPlayer", "skip", "confirmSelection", "selectPlayerGUI", "interruption", "mayorVote"]
+debugMode: false
+guiEvents: ["deathPotion", "lifePotion", "noAction", "selectPlayer", "skip", "confirmSelection", "selectPlayerGUI", "interruption", "mayorVote", "choseActionGUI"]
 
 noGameError: "§cil n'y a pas de partie de loup-garou en cours"
 noPlayersError: "§cil n'y a pas de joueurs dans la partie de loup-garou en cours"
@@ -14,7 +14,7 @@ onDayMessage: "C'est le jour"
 
 noDeathMessage: "Il n'y a pas eut de morts cette nuit"
 
-mayorElectionMessage: 'Il faut élire une maire'
+mayorElectionMessage: 'Il faut élire un maire'
 killElectionMessage: "Il faut tuer quelqu'un"
 
 newMayorMessage: "Le nouveau maire c'est <player>"

@@ -5,7 +5,6 @@ import Loup_Garou_1_15_2.Game.Roles.*;
 import Loup_Garou_1_15_2.Main;
 import Loup_Garou_1_15_2.Tools;
 
-import Loup_Garou_1_15_2.commands.LGGameCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -127,7 +126,7 @@ public class Game
         }
 
         // nombre de role dans la partie
-        int wereWolf = 0;
+        int wereWolf = 2;
         int seer = 1;
         int witch = 1;
         int cupid = 0;
@@ -179,7 +178,7 @@ public class Game
             lgPlayer.player.sendMessage(lgPlayer.role.description);
 
             Tools.sendSidebarMessage(lgPlayer.player, ChatColor.RED +  "Ton role est : " + lgPlayer.role.toString());
-            lgPlayer.player.sendTitle("Tu est " + lgPlayer.role.toString(), lgPlayer.role.description, 5, 10, 5);
+            lgPlayer.player.sendTitle("Tu est " + lgPlayer.role.toString(), lgPlayer.role.description, 50, 50, 50);
         }
 
         time = Time.night;
@@ -227,11 +226,13 @@ public class Game
             //annonce des morts de la nuit et de leurs roles, peut etre override pour rajouter des events
             for(LgPlayer dead : deadThisNight)
             {
-                dead.role.onDeath();
-                if(dead.player.getName().equals(mayor.player.getName()))
+                if(mayor != null && dead.player.getName().equals(mayor.player.getName()))
                 {
                     mayor = null;
                 }
+
+                Bukkit.broadcastMessage(dead.player.getName() + " est mort cette nuit il étais " + dead.role.toString());
+                dead.role.onDeath();
             }
         }
 
@@ -270,7 +271,7 @@ public class Game
 
     void onEndGame()
     {
-        for(LgPlayer lgPlayer : getLgPlayers().values())
+        for(LgPlayer lgPlayer : lgPlayers.values())
         {
             lgPlayer.player.setGameMode(GameMode.ADVENTURE);
         }
@@ -366,7 +367,7 @@ public class Game
             for(LgPlayer lgPlayer : lgPlayers.values())
             {
                 Tools.sendSidebarMessage(lgPlayer.player, "Tout le monde a perdu !");
-                lgPlayer.player.sendTitle("Fin de la Partie", ChatColor.RED + "Pas de vainqueurs !", 5, 10, 5);
+                lgPlayer.player.sendTitle("Fin de la Partie", ChatColor.RED + "Pas de vainqueurs !", 50, 50, 50);
             }
 
             return true;
@@ -377,13 +378,13 @@ public class Game
             for(LgPlayer villager : villagers)
             {
                 Tools.sendSidebarMessage(villager.player, ChatColor.RED +  "victoire des villagois");
-                villager.player.sendTitle("Les " + ChatColor.DARK_GREEN + "Villagois " + ChatColor.WHITE + "remporte la partie !", ChatColor.RED + "vous avez gagner !", 5, 10, 5);
+                villager.player.sendTitle("Les " + ChatColor.DARK_GREEN + "Villagois " + ChatColor.WHITE + "remporte la partie !", ChatColor.RED + "vous avez gagner !", 50, 50, 50);
             }
 
             for(LgPlayer wereWolf : wereWolfs)
             {
                 Tools.sendSidebarMessage(wereWolf.player, ChatColor.GREEN +  "vous avez perdu");
-                wereWolf.player.sendTitle("Les " + ChatColor.DARK_GREEN + "Villagois " + ChatColor.WHITE + "remporte la partie !", ChatColor.GREEN + "vous avez perdu la partie", 5, 10, 5);
+                wereWolf.player.sendTitle("Les " + ChatColor.DARK_GREEN + "Villagois " + ChatColor.WHITE + "remporte la partie !", ChatColor.GREEN + "vous avez perdu la partie", 50, 50, 50);
             }
 
             return true;
@@ -394,13 +395,13 @@ public class Game
             for(LgPlayer wereWolf : wereWolfs)
             {
                 Tools.sendSidebarMessage(wereWolf.player, ChatColor.GREEN +  "victoire des loups");
-                wereWolf.player.sendTitle("Les " + ChatColor.DARK_RED + "Loup-Garou " + ChatColor.WHITE + "remporte la partie !", ChatColor.GREEN + "vous avez gagner !", 5, 10, 5);
+                wereWolf.player.sendTitle("Les " + ChatColor.DARK_RED + "Loup-Garou " + ChatColor.WHITE + "remporte la partie !", ChatColor.GREEN + "vous avez gagner !", 50, 50, 50);
             }
 
             for(LgPlayer villager : villagers)
             {
                 Tools.sendSidebarMessage(villager.player, ChatColor.RED +  "vous avez perdu");
-                villager.player.sendTitle("Les " + ChatColor.DARK_RED + "Loup-Garou " + ChatColor.WHITE + "remporte la partie !", ChatColor.RED + "vous avez perdu la partie", 5, 10, 5);
+                villager.player.sendTitle("Les " + ChatColor.DARK_RED + "Loup-Garou " + ChatColor.WHITE + "remporte la partie !", ChatColor.RED + "vous avez perdu la partie", 50, 50, 50);
             }
 
             return true;
@@ -454,7 +455,9 @@ public class Game
                 Bukkit.broadcastMessage(Tools.getConfigString("votedDeathMessage", vote));
 
                 if(getLgPlayers().get(vote) != null)
+                {
                     getLgPlayers().get(vote).role.onDeath();
+                }
             }
 
             setCurrentVote(Vote.none);
@@ -494,9 +497,10 @@ public class Game
 
      int currentRoleIndex = 0;
 
+    Class<?>[] roleRounds = { Cupid.class, Seer.class, WereWolf.class, Witch.class };
+
     public void nextRoleTurn()
     {
-        Class<?>[] roleRounds = { Cupid.class, Seer.class, WereWolf.class, Witch.class };
 
         if(currentRoleIndex == roleRounds.length)
         {

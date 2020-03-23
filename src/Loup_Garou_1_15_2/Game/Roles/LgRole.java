@@ -35,8 +35,6 @@ public abstract class LgRole
 
     public void onDeath()
     {
-        Bukkit.broadcastMessage(lgPlayer.player.getName() + " est mort cette nuit il étais " + toString());
-
         lgPlayer.player.setHealth(0);       //seul moyen de tuer un joueur
         lgPlayer.isDead = true;
 

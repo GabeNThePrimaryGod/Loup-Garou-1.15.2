@@ -34,7 +34,7 @@ public class Seer extends LgRole
             {
                 if(_lgPlayer.player != lgPlayer.player)
                 {
-                    seeGui.addItem(Material.PLAYER_HEAD, lgPlayer.player.getName(), "selectPlayer",
+                    seeGui.addItem(Material.PLAYER_HEAD, _lgPlayer.player.getName(), "selectPlayer",
                         (GUI.Item item) ->
                         {
                             if(seen.contains(_lgPlayer.player.getName()))
@@ -77,6 +77,7 @@ public class Seer extends LgRole
         seeGui.refresh();
         lgPlayer.player.sendMessage(seenName + " est " + game.getLgPlayers().get(seenName).role.toString());
 
+        lgPlayer.player.closeInventory();
         game.nextRoleTurn();
     }
 }

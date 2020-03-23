@@ -177,7 +177,7 @@ public class Witch extends LgRole
 
         for(int i = 0; i < game.deadThisNight.size(); i++)
         {
-            if(game.deadThisNight.get(i).player.getName() == selectedName)
+            if(game.deadThisNight.get(i).player.getName().equals(selectedName))
             {
                 game.deadThisNight.remove(i);
                 lgPlayer.player.sendMessage(Tools.getConfigString("savingMessage", selectedName));
