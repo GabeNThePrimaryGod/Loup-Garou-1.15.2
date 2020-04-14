@@ -283,7 +283,7 @@ public class Game
 
     /*  fonctionnement du syteme de verification de role
      *
-     *  a partir d'une list de Class<?> on vérifie si le role est une instance d'au moin un element de la list
+     *  a partir d'une list de Class<?> on vérifie si le role est une instance d'au moins un element de la list
      *  si oui on le rajoute a une list qui sera retourner
      */
 
@@ -495,7 +495,7 @@ public class Game
      * Sorcière
      */
 
-     int currentRoleIndex = 0;
+    int currentRoleIndex = 0;
 
     Class<?>[] roleRounds = { Cupid.class, Seer.class, WereWolf.class, Witch.class };
 
@@ -524,7 +524,7 @@ public class Game
 
     private void onRoleRound()
     {
-        Bukkit.broadcastMessage("C'est le tour des " + currentRoleRound.toString());
+        Bukkit.broadcastMessage("C'est le tour de " + getPlayerByRole(currentRoleRound).role.toString());
 
         for(LgPlayer lgPlayer : getPlayersByRole(currentRoleRound))
         {

@@ -59,7 +59,12 @@ public class InventoryListener implements Listener
         {
             // on envoie les donnée nécéssaires a l'evenement onGuiAction du role
             event.setCancelled(true);
-            lgPlayer.role.onGuiAction(eventName, event.getCurrentItem(), inventory);
+
+            // check is it's Inventory event come from the current role playing
+            if(lgPlayer.role.getClass().equals(game.getCurrentRoleRound()))
+            {
+                lgPlayer.role.onGuiAction(eventName, event.getCurrentItem(), inventory);
+            }
         }
         else if(game.time == Game.Time.day)
         {

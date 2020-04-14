@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 public class GUI
 {
-    public class Item
+    public class Item extends SimpleEventEmitter
     {
         private class InitialData
         {
@@ -126,28 +126,29 @@ public class GUI
         inventory = Bukkit.createInventory(null, size, title);
     }
 
-    public void addItem(@NotNull Material material, Consumer<Item> callback)
-    { addItem(material, "", "", 1, -1,callback); }
+    public Item addItem(@NotNull Material material, Consumer<Item> callback)
+    { return addItem(material, "", "", 1, -1,callback); }
 
-    public void addItem(@NotNull Material material, @NotNull int amount, Consumer<Item> callback)
-    { addItem(material, "", "", amount, -1, callback); }
+    public Item addItem(@NotNull Material material, @NotNull int amount, Consumer<Item> callback)
+    { return addItem(material, "", "", amount, -1, callback); }
 
-    public void addItem(@NotNull Material material, @NotNull String displayName, Consumer<Item> callback)
-    { addItem(material, displayName, "", 1, -1, callback); }
+    public Item addItem(@NotNull Material material, @NotNull String displayName, Consumer<Item> callback)
+    { return addItem(material, displayName, "", 1, -1, callback); }
 
-    public void addItem(@NotNull Material material, @NotNull String displayName, @NotNull String localizedName)
-    { addItem(material, displayName, localizedName, 1, -1, null); }
+    public Item addItem(@NotNull Material material, @NotNull String displayName, @NotNull String localizedName)
+    { return addItem(material, displayName, localizedName, 1, -1, null); }
 
-    public void addItem(@NotNull Material material, @NotNull String displayName, @NotNull String localizedName, Consumer<Item> callback)
-    { addItem(material, displayName, localizedName, 1, -1, callback); }
+    public Item addItem(@NotNull Material material, @NotNull String displayName, @NotNull String localizedName, Consumer<Item> callback)
+    { return addItem(material, displayName, localizedName, 1, -1, callback); }
 
-    public void addItem(@NotNull Material material, @NotNull int inventoryIndex, @NotNull String displayName, @NotNull String localizedName)
-    { addItem(material, displayName, localizedName, 1, inventoryIndex, null); }
+    public Item addItem(@NotNull Material material, @NotNull int inventoryIndex, @NotNull String displayName, @NotNull String localizedName)
+    { return addItem(material, displayName, localizedName, 1, inventoryIndex, null); }
 
-    public void addItem(@NotNull Material material, @NotNull int inventoryIndex, @NotNull String displayName, @NotNull String localizedName, Consumer<Item> callback)
-    { addItem(material, displayName, localizedName, 1, inventoryIndex, callback); }
+    public Item addItem(@NotNull Material material, @NotNull int inventoryIndex, @NotNull String displayName, @NotNull String localizedName, Consumer<Item> callback)
+    { return addItem(material, displayName, localizedName, 1, inventoryIndex, callback); }
 
-    public void addItem(@NotNull Material material,
+
+    public Item addItem(@NotNull Material material,
                         @NotNull String displayName,
                         @NotNull String localizedName,
                         @NotNull int amount,
@@ -159,7 +160,7 @@ public class GUI
         if(inventory == null)
         {
             Tools.consoleLogError("Add item : no inventory");
-            return;
+            return null;
         }
 
         if(callback != null)
@@ -167,17 +168,47 @@ public class GUI
             callback.accept(item);
         }
 
-        items.add(item);
-
-        // TODO : gerer la position de l'item dans l'inventaire dans le cas ou il n'y a pas de builder
+        // TODO : gerer la position de l'item dans l'inventaire
         if(inventoryIndex != -1)
         {
+            items.set(inventoryIndex, item);
             inventory.setItem(inventoryIndex, item.itemStack);
         }
         else
         {
+            items.add(item);
             inventory.addItem(item.itemStack);
         }
+
+        return item;
+    }
+
+
+    public Item getItem(int index) { return items.get(index); }
+    public Item getItem(String itemName)
+    {
+        for (GUI.Item item : items)
+        {
+            if(item.itemStack.getItemMeta().getDisplayName().equals(itemName))
+            {
+                return item;
+            }
+        }
+
+        return null;
+    }
+    public Item getItem(String itemName, String actionName)
+    {
+        for (GUI.Item item : items)
+        {
+            if(item.itemStack.getItemMeta().getDisplayName().equals(itemName)
+            && item.itemStack.getItemMeta().getLocalizedName().equals(actionName))
+            {
+                return item;
+            }
+        }
+
+        return null;
     }
 
     public void clearItems() { items.clear(); }
@@ -203,7 +234,10 @@ public class GUI
         player.openInventory(inventory);
 
         // TODO : delay async event
+        // piste : utiliser le scheduler de l'instance de BUKKIT
         // bug : on ne peut pas lancer la methode async .openInventory() dans une autre thread
+        //
+
 
         /*final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 

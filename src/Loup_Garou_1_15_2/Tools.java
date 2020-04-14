@@ -33,33 +33,6 @@ public class Tools
         return random.nextInt((max - min) + 1) + min;
     }
 
-    public static String getConfigString(String path)
-    {
-        String message =
-            plugin.getConfig()
-                .getString(path);
-        return ParseColor(message);
-    }
-
-    public static String getConfigString(String path, String player)
-    {
-        String message =
-            plugin.getConfig()
-                .getString(path)
-                .replace("<player>", player);
-        return ParseColor(message);
-    }
-
-    public static String getConfigString(String path, Player player, int number)
-    {
-        String message =
-            plugin.getConfig()
-                .getString(path)
-                .replace("<player>", player.getName())
-                .replace("<number>", String.valueOf(number));
-        return ParseColor(message);
-    }
-
     public static void consoleLog(String msg)
     {
         Bukkit.getConsoleSender().sendMessage(msg);

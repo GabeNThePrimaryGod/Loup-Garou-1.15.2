@@ -3,7 +3,6 @@ package Loup_Garou_1_15_2.Game.Roles;
 import Loup_Garou_1_15_2.Game.Game;
 import Loup_Garou_1_15_2.Game.LgPlayer;
 import Loup_Garou_1_15_2.Tools;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
