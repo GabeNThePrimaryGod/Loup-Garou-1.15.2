@@ -1,5 +1,6 @@
 package Loup_Garou_1_15_2.commands;
 
+import Loup_Garou_1_15_2.Config;
 import Loup_Garou_1_15_2.Game.House;
 import Loup_Garou_1_15_2.Main;
 import Loup_Garou_1_15_2.Tools;
@@ -18,6 +19,8 @@ public class LGSetupCommand implements CommandExecutor
         this.plugin = plugin;
         this.plugin.getCommand("lgSetup").setExecutor(this);
     }
+
+    RewardSystem rewardSystem = new RewardSystem();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
@@ -50,6 +53,10 @@ public class LGSetupCommand implements CommandExecutor
                 player.sendMessage("You set the execution room in " + player.getLocation().toVector().toString());
                 break;
 
+            case "reward":
+                rewardSystem.onJoin(player, (args[1].equals("new")) ? true : false);
+                break;
+
             default:
                 return false;
         }
@@ -74,7 +81,7 @@ public class LGSetupCommand implements CommandExecutor
         }
         else
         {
-            player.sendMessage(Tools.getConfigString("lgHouseListMessage_NoHousesError"));
+            player.sendMessage(Config.getConfigString("lgHouseListMessage_NoHousesError"));
         }
     }
 }

@@ -1,5 +1,6 @@
 package Loup_Garou_1_15_2.listeners;
 
+import Loup_Garou_1_15_2.Config;
 import Loup_Garou_1_15_2.Game.Game;
 import Loup_Garou_1_15_2.Game.LgPlayer;
 import Loup_Garou_1_15_2.Tools;
@@ -41,13 +42,13 @@ public class InventoryListener implements Listener
 
         if(game == null)
         {
-            player.sendMessage(Tools.getConfigString("noGameError"));
+            player.sendMessage(Config.getConfigString("noGameError"));
             return;
         }
 
         if(game.getLgPlayers().get(player.getName()) == null)
         {
-            player.sendMessage(Tools.getConfigString("notInGameError"));
+            player.sendMessage(Config.getConfigString("notInGameError"));
             return;
         }
 

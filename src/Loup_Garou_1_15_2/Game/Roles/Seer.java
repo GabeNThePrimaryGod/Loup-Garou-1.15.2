@@ -1,5 +1,6 @@
 package Loup_Garou_1_15_2.Game.Roles;
 
+import Loup_Garou_1_15_2.Config;
 import Loup_Garou_1_15_2.Game.GUI;
 import Loup_Garou_1_15_2.Game.LgPlayer;
 import Loup_Garou_1_15_2.Tools;
@@ -19,7 +20,7 @@ public class Seer extends LgRole
     public Seer(LgPlayer lgPlayer)
     {
         super(lgPlayer);
-        description = Tools.getConfigString("roleDescription_Seer");
+        description = Config.getConfigString("roleDescription_Seer");
 
         buildSeeGUI();
     }
@@ -50,7 +51,7 @@ public class Seer extends LgRole
     @Override
     public String toString()
     {
-        return Tools.getConfigString("roleName_Seer");
+        return Config.getConfigString("roleName_Seer");
     }
 
     @Override

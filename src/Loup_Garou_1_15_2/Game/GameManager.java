@@ -1,5 +1,6 @@
 package Loup_Garou_1_15_2.Game;
 
+import Loup_Garou_1_15_2.Config;
 import Loup_Garou_1_15_2.Main;
 import Loup_Garou_1_15_2.Tools;
 import org.bukkit.Bukkit;
@@ -25,10 +26,10 @@ public class GameManager
         if(game == null)
         {
             game = new Game(plugin);
-            Bukkit.broadcastMessage(Tools.getConfigString("lgCreateGameMessage", player.getName()));
+            Bukkit.broadcastMessage(Config.getConfigString("lgCreateGameMessage", player.getName()));
         }
         else
-            player.sendMessage(Tools.getConfigString("lgCreateGameMessage_Error", player.getName()));
+            player.sendMessage(Config.getConfigString("lgCreateGameMessage_Error", player.getName()));
     }
 
     public void DeleteGame(Player player)
@@ -36,10 +37,10 @@ public class GameManager
         if(game != null)
         {
             game = null;
-            Bukkit.broadcastMessage(Tools.getConfigString("lgDeleteGameMessage", player.getName()));
+            Bukkit.broadcastMessage(Config.getConfigString("lgDeleteGameMessage", player.getName()));
         }
         else
-            player.sendMessage(Tools.getConfigString("lgDeleteGameMessage_Error", player.getName()));
+            player.sendMessage(Config.getConfigString("lgDeleteGameMessage_Error", player.getName()));
     }
 
     public void JoinGame(Player player)
@@ -47,7 +48,7 @@ public class GameManager
         if(game != null)
             game.Join(player);
         else
-            player.sendMessage(Tools.getConfigString("noGameError"));
+            player.sendMessage(Config.getConfigString("noGameError"));
     }
 
     public void LeaveGame(Player player)
@@ -55,7 +56,7 @@ public class GameManager
         if(game != null)
             game.Leave(player);
         else
-            player.sendMessage(Tools.getConfigString("noGameError"));
+            player.sendMessage(Config.getConfigString("noGameError"));
     }
 
     public void StartGame(Player player)
@@ -63,21 +64,21 @@ public class GameManager
         // if no game return
         if(game == null)
         {
-            player.sendMessage(Tools.getConfigString("noGameError"));
+            player.sendMessage(Config.getConfigString("noGameError"));
             return;
         }
 
         // enough players ?
         if(game.getLgPlayers().size() < plugin.getConfig().getInt("minPlayers"))
         {
-            player.sendMessage(Tools.getConfigString("startGame_NotEnoughtPlayersError"));
+            player.sendMessage(Config.getConfigString("startGame_NotEnoughtPlayersError"));
             return;
         }
 
         // enough houses ?
         if(houses.size() < game.getLgPlayers().size())
         {
-            player.sendMessage(Tools.getConfigString("startGame_NotEnoughtHousesError"));
+            player.sendMessage(Config.getConfigString("startGame_NotEnoughtHousesError"));
             return;
         }
 
@@ -88,7 +89,7 @@ public class GameManager
         {
             lgPlayer.setHouse(houses.get(i));
 
-            Bukkit.broadcastMessage(Tools.getConfigString("distributeHousesMessage", lgPlayer.player, i));
+            Bukkit.broadcastMessage(Config.getConfigString("distributeHousesMessage", lgPlayer.player, i));
             i++;
         }
 

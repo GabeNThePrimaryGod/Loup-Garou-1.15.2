@@ -4,6 +4,7 @@ import Loup_Garou_1_15_2.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -110,12 +111,16 @@ public class GUI
         this.builder.run();
     }
 
+    public static List<GUI> registeredGUI = new ArrayList<>();
+
     public GUI(InventoryType type) { Bukkit.createInventory(null, type, ""); }
     public GUI(InventoryType type, String title) { Bukkit.createInventory(null, type, title); }
     public GUI(InventoryType type, String title, Player player)
     {
         this.player = player;
         inventory = Bukkit.createInventory(null, type, title);
+
+        GUI.registeredGUI.add(this);
     }
 
     public GUI(int size) { inventory = Bukkit.createInventory(null, size, ""); }
@@ -124,6 +129,8 @@ public class GUI
     {
         this.player = player;
         inventory = Bukkit.createInventory(null, size, title);
+
+        GUI.registeredGUI.add(this);
     }
 
     public Item addItem(@NotNull Material material, Consumer<Item> callback)
@@ -156,6 +163,17 @@ public class GUI
                         Consumer<Item> callback)
     {
         Item item = new Item(material, displayName, localizedName, amount, callback);
+
+        // DEBUG
+
+        item.on("click", (Object eventdata) ->
+        {
+            Tools.consoleLog("OUI SUPER");
+
+            Tools.consoleLog( ((InventoryClickEvent)eventdata).getAction().toString() );
+        });
+
+        // DEBUG
 
         if(inventory == null)
         {
@@ -210,6 +228,18 @@ public class GUI
 
         return null;
     }
+    /*public Item getItem(ItemStack itemStack)
+    {
+        for(GUI.Item item : items)
+        {
+            if(item.itemStack == itemStack)
+            {
+                return item;
+            }
+        }
+
+        return null;
+    }*/
 
     public void clearItems() { items.clear(); }
 

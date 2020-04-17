@@ -1,5 +1,6 @@
 package Loup_Garou_1_15_2.Game.Roles;
 
+import Loup_Garou_1_15_2.Config;
 import Loup_Garou_1_15_2.Game.GUI;
 import Loup_Garou_1_15_2.Game.Game;
 import Loup_Garou_1_15_2.Game.LgPlayer;
@@ -31,7 +32,7 @@ public class Witch extends LgRole
     public Witch(LgPlayer lgPlayer)
     {
         super(lgPlayer);
-        description = Tools.getConfigString("roleDescription_Witch");
+        description = Config.getConfigString("roleDescription_Witch");
 
         buildChoseActionGUI();
         buildSelectPlayerGUI();
@@ -40,7 +41,7 @@ public class Witch extends LgRole
     @Override
     public String toString()
     {
-        return Tools.getConfigString("roleName_Witch");
+        return Config.getConfigString("roleName_Witch");
     }
 
     private void printDeads()
@@ -162,7 +163,7 @@ public class Witch extends LgRole
         if(selectedName == null)
         {
             Tools.consoleLogWarn("no lifePotion target " + selectedName + " on Witch " + lgPlayer.player.getName());
-            lgPlayer.player.sendMessage(Tools.getConfigString("noSelectionError"));
+            lgPlayer.player.sendMessage(Config.getConfigString("noSelectionError"));
             return;
         }
 
@@ -171,7 +172,7 @@ public class Witch extends LgRole
         if(!game.deadThisNight.contains(game.getLgPlayers().get(selectedName)))
         {
             Tools.consoleLogWarn("wrong lifePotion Target " + selectedName + " on Witch " + lgPlayer.player.getName());
-            lgPlayer.player.sendMessage(Tools.getConfigString("wrongLifePotionTargetError"));
+            lgPlayer.player.sendMessage(Config.getConfigString("wrongLifePotionTargetError"));
             return;
         }
 
@@ -180,7 +181,7 @@ public class Witch extends LgRole
             if(game.deadThisNight.get(i).player.getName().equals(selectedName))
             {
                 game.deadThisNight.remove(i);
-                lgPlayer.player.sendMessage(Tools.getConfigString("savingMessage", selectedName));
+                lgPlayer.player.sendMessage(Config.getConfigString("savingMessage", selectedName));
             }
         }
 
@@ -194,7 +195,7 @@ public class Witch extends LgRole
         if(selectedName == null)
         {
             Tools.consoleLogWarn("no deathPotion target " + selectedName + " on Witch " + lgPlayer.player.getName());
-            lgPlayer.player.sendMessage(Tools.getConfigString("noSelectionError"));
+            lgPlayer.player.sendMessage(Config.getConfigString("noSelectionError"));
             return;
         }
 
@@ -205,7 +206,7 @@ public class Witch extends LgRole
         }
 
         game.deadThisNight.add(game.getLgPlayers().get(selectedName));
-        lgPlayer.player.sendMessage(Tools.getConfigString("killingMessage", selectedName));
+        lgPlayer.player.sendMessage(Config.getConfigString("killingMessage", selectedName));
 
         haveDeathPotion = false;
 

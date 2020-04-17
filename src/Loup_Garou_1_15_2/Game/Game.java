@@ -53,10 +53,10 @@ public class Game
         if(!lgPlayers.containsKey(player.getName()))
         {
             lgPlayers.put(player.getName(), new LgPlayer(player));
-            Bukkit.broadcastMessage(Tools.getConfigString("lgJoinGameMessage", player.getName()));
+            Bukkit.broadcastMessage(Config.getConfigString("lgJoinGameMessage", player.getName()));
         }
         else
-            player.sendMessage(Tools.getConfigString("lgJoinGameMessage_InError", player.getName()));
+            player.sendMessage(Config.getConfigString("lgJoinGameMessage_InError", player.getName()));
     }
 
     public void Leave(Player player)
@@ -64,10 +64,10 @@ public class Game
         if(lgPlayers.containsKey(player.getName()))
         {
             lgPlayers.remove(player.getName());
-            Bukkit.broadcastMessage(Tools.getConfigString("leaveGameMessage", player.getName()));
+            Bukkit.broadcastMessage(Config.getConfigString("leaveGameMessage", player.getName()));
         }
         else
-            player.sendMessage(Tools.getConfigString("leaveGameMessage_NotInError", player.getName()));
+            player.sendMessage(Config.getConfigString("leaveGameMessage_NotInError", player.getName()));
     }
 
     public LgPlayer getPlayerByRole(Class<? extends LgRole> roleClass)
@@ -112,7 +112,7 @@ public class Game
             Bukkit.broadcastMessage(ChatColor.RED + "[Warning] La partie de loup-Garou est lancée en mode-debug");
         }
 
-        Bukkit.broadcastMessage(Tools.getConfigString("startGameMessage"));
+        Bukkit.broadcastMessage(Config.getConfigString("startGameMessage"));
 
         for(LgPlayer lgPlayer : getLgPlayers().values())
         {
@@ -189,7 +189,7 @@ public class Game
     {
         time = Time.night;
 
-        Bukkit.broadcastMessage(Tools.getConfigString("onNightMessage"));
+        Bukkit.broadcastMessage(Config.getConfigString("onNightMessage"));
 
         //TODO : voir comment recupere le nom du monde courant
         // maybe a partir de l'UUID d'un joueur ?
@@ -215,11 +215,11 @@ public class Game
         //changer l'heure pour que ce soit le jour
         Objects.requireNonNull(Bukkit.getWorld("World")).setTime(0);
 
-        Bukkit.broadcastMessage(Tools.getConfigString("onDayMessage"));
+        Bukkit.broadcastMessage(Config.getConfigString("onDayMessage"));
 
         if(deadThisNight.size() == 0)
         {
-            Bukkit.broadcastMessage(Tools.getConfigString("noDeathMessage"));
+            Bukkit.broadcastMessage(Config.getConfigString("noDeathMessage"));
         }
         else
         {
@@ -416,11 +416,11 @@ public class Game
 
         if(currentVote == Vote.Mayor)
         {
-            Bukkit.broadcastMessage(Tools.getConfigString("mayorElectionMessage"));
+            Bukkit.broadcastMessage(Config.getConfigString("mayorElectionMessage"));
         }
         if(currentVote == Vote.Kill)
         {
-            Bukkit.broadcastMessage((Tools.getConfigString("killElectionMessage")));
+            Bukkit.broadcastMessage((Config.getConfigString("killElectionMessage")));
         }
     }
 
@@ -430,14 +430,14 @@ public class Game
 
         if(vote == null)
         {
-            Bukkit.broadcastMessage(Tools.getConfigString("noVotedMessage"));
+            Bukkit.broadcastMessage(Config.getConfigString("noVotedMessage"));
         }
 
         if(currentVote == Vote.Mayor)
         {
             if(vote != null)
             {
-                Bukkit.broadcastMessage(Tools.getConfigString("newMayorMessage", vote));
+                Bukkit.broadcastMessage(Config.getConfigString("newMayorMessage", vote));
 
                 if(getLgPlayers().get(vote) != null)
                 {
@@ -452,7 +452,7 @@ public class Game
         {
             if(vote != null)
             {
-                Bukkit.broadcastMessage(Tools.getConfigString("votedDeathMessage", vote));
+                Bukkit.broadcastMessage(Config.getConfigString("votedDeathMessage", vote));
 
                 if(getLgPlayers().get(vote) != null)
                 {

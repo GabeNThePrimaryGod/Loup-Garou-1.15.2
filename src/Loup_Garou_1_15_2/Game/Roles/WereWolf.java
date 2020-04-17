@@ -1,5 +1,6 @@
 package Loup_Garou_1_15_2.Game.Roles;
 
+import Loup_Garou_1_15_2.Config;
 import Loup_Garou_1_15_2.Game.GUI;
 import Loup_Garou_1_15_2.Game.Game;
 import Loup_Garou_1_15_2.Game.LgPlayer;
@@ -32,7 +33,7 @@ public class WereWolf extends LgRole
     public WereWolf(LgPlayer lgPlayer)
     {
         super(lgPlayer);
-        description = Tools.getConfigString("roleDescription_WereWolf");
+        description = Config.getConfigString("roleDescription_WereWolf");
 
         buildMatesGUI();
         buildVoteGUI();
@@ -47,7 +48,7 @@ public class WereWolf extends LgRole
     @Override
     public String toString()
     {
-        return Tools.getConfigString("roleName_WereWolf");
+        return Config.getConfigString("roleName_WereWolf");
     }
 
     @Override

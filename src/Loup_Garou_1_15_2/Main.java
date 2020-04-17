@@ -1,10 +1,7 @@
 package Loup_Garou_1_15_2;
 
 import Loup_Garou_1_15_2.Game.GameManager;
-import Loup_Garou_1_15_2.listeners.BlockListener;
-import Loup_Garou_1_15_2.listeners.InventoryListener;
-import Loup_Garou_1_15_2.listeners.JoinListener;
-import Loup_Garou_1_15_2.listeners.LeaveListener;
+import Loup_Garou_1_15_2.listeners.*;
 import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,6 +15,7 @@ public class Main extends JavaPlugin
 	public void onEnable()
 	{
 		saveDefaultConfig();
+
 		Tools.plugin = this;
 		Config.plugin = this;
 
@@ -28,6 +26,8 @@ public class Main extends JavaPlugin
 		new LeaveListener(this);
 		new InventoryListener(this);
 		new BlockListener(this);
+
+		new GUIListener(this);
 	}
 }
 

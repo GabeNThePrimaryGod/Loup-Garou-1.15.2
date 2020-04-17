@@ -1,5 +1,6 @@
 package Loup_Garou_1_15_2.commands;
 
+import Loup_Garou_1_15_2.Config;
 import Loup_Garou_1_15_2.Game.LgPlayer;
 import Loup_Garou_1_15_2.Main;
 import Loup_Garou_1_15_2.Tools;
@@ -71,9 +72,9 @@ public class LGGameCommand implements CommandExecutor
                 player.sendMessage(playersString);
             }
             else
-                player.sendMessage(Tools.getConfigString("noPlayersError"));
+                player.sendMessage(Config.getConfigString("noPlayersError"));
         }
         else
-            player.sendMessage(Tools.getConfigString("noGameError"));
+            player.sendMessage(Config.getConfigString("noGameError"));
     }
 }
